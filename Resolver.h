@@ -28,10 +28,8 @@ void resolve(tasks task) {
         case LINEAR:
         case CIRCULAR:
             n = rand()%3 + 3;
-            //x = generator::generateVector(n);
-            //h = generator::generateVector(task == LINEAR ? rand()%3 + 3 : n);
-            x = {9, 7, -2, -7, 0};
-            h = {9, -2, 4, 7, 3};
+            x = generator::generateVector(n);
+            h = generator::generateVector(task == LINEAR ? rand()%3 + 3 : n);
             std::cout<<"{x(i)} = ";
             Presenter::outputVector(x);
             std::cout<<std::endl;
