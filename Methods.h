@@ -142,11 +142,6 @@ namespace convolution {
             }
         }
 
-        if (s == PHYSICAL) {
-            reverse(_x);
-            reverse(_h);
-        }
-
         std::cout << "after filling with zeros: " <<std::endl;
         std::cout << "{x(i,j)} = " << std::endl;
         Presenter::outputTwoDimensionalVector(_x);
@@ -161,7 +156,6 @@ namespace convolution {
                 _h,
                 s
         );
-        reverse(y);
 
         return y;
     }
