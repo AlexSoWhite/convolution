@@ -78,26 +78,46 @@ namespace convolution {
     }
 
     std::vector<std::vector<int>> solveTwoDimensionalCircularConvolution(
-        const std::vector<std::vector<int>>& x,
-        const std::vector<std::vector<int>>& h,
+        std::vector<std::vector<int>>& x,
+        std::vector<std::vector<int>>& h,
         system s
     ) {
-        uint M = x.size();
-        uint N = x[0].size();
-        std::vector<std::vector<int>> y(M, std::vector<int>(N, 0));
-        for (int m = 0; m < M; m++) {
-            for (int n = 0; n < N; n++) {
-                for (int i = 0; i < M; i++) {
-                    for (int j = 0; j < N; j++) {
-                        y[m][n] += x[i][j] * h[getIndex(h.size(), m-i)][getIndex(h[0].size(),n-j)];
+        if (s == ALGEBRAICAL) {
+            uint M = x.size();
+            uint N = x[0].size();
+            std::vector<std::vector<int>> y(M, std::vector<int>(N, 0));
+            for (int m = 0; m < M; m++) {
+                for (int n = 0; n < N; n++) {
+                    for (int i = 0; i < M; i++) {
+                        for (int j = 0; j < N; j++) {
+                            y[m][n] += x[i][j] * h[getIndex(M, m - i)][getIndex(N, n - j)];
+                        }
                     }
                 }
             }
-        }
-        if (s == PHYSICAL) {
+            return y;
+        } else {
+            // here i and j swap places, as n and m
+            reverse(x);
+            reverse(h);
+            uint M = x[0].size();
+            uint N = x.size();
+            std::vector<std::vector<int>> y(N, std::vector<int>(M, 0));
+            for (int m = 0; m < M; m++) { //col
+                for (int n = 0; n < N; n++) { //line
+                    for (int i = 0; i < M; i++) { //col
+                        for (int j = 0; j < N; j++) { //line
+                            y[n][m] += x[j][i] * h[getIndex(N, n - j)][getIndex(M, m - i)];
+                        }
+                    }
+                }
+            }
             reverse(y);
+            return y;
         }
-        return y;
+//        if (s == PHYSICAL) {
+//            reverse(y);
+//        }
     }
 
     std::vector<std::vector<int>> solveTwoDimensionalLinearConvolution(
