@@ -28,8 +28,10 @@ void resolve(tasks task) {
         case LINEAR:
         case CIRCULAR:
             n = rand()%3 + 3;
-            x = generator::generateVector(n);
-            h = generator::generateVector(task == LINEAR ? rand()%3 + 3 : n);
+            //x = generator::generateVector(n);
+            //h = generator::generateVector(task == LINEAR ? rand()%3 + 3 : n);
+            x = {9, 7, -2, -7, 0};
+            h = {9, -2, 4, 7, 3};
             std::cout<<"{x(i)} = ";
             Presenter::outputVector(x);
             std::cout<<std::endl;
@@ -38,7 +40,7 @@ void resolve(tasks task) {
             std::cout<<std::endl;
             std::cin >> c;
             y = task == LINEAR ? convolution::solveLinearConvolution(x,h) : convolution::solveCircularConvolution(x,h);
-            std::cout<<"{y(i)} = ";
+            std::cout<<"{y(n)} = ";
             Presenter::outputVector(y);
             std::cout<<std::endl;
             break;
@@ -63,7 +65,7 @@ void resolve(tasks task) {
                 dy = task == DLINEAR? convolution::solveTwoDimensionalLinearConvolution(dx, dh, convolution::ALGEBRAICAL)
                                     : convolution::solveTwoDimensionalCircularConvolution(dx, dh, convolution::ALGEBRAICAL);
             }
-            std::cout<<"{y(n,m)} = "<<std::endl;
+            std::cout<<"{y(m,n)} = "<<std::endl;
             Presenter::outputTwoDimensionalVector(dy);
             std::cout<<std::endl;
             break;

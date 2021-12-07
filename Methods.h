@@ -71,7 +71,7 @@ namespace convolution {
         std::vector<int> y(x.size(), 0);
         for (size_t i = 0; i < x.size(); i++) {
             for (size_t k = 0; k < x.size(); k++) {
-                y[i] += x[k] * h[(i-k)%x.size()];
+                y[i] += x[k] * h[getIndex(h.size(),i-k)];
             }
         }
         return y;
